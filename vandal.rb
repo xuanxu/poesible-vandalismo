@@ -2,12 +2,12 @@ require 'httparty'
 
 class Vandal
 
-  attr_accessor :lang, :tag, :output_dir
+  attr_accessor :lang, :tags, :output_dir
 
   def initialize(options = {})
     @lang = options[:lang] || defaults[:lang]
-    @tag = options[:tag] || defaults[:tag]
-    @output_dir = options[:oyput_dir] || defaults[:output_dir]
+    @tags = options[:tags] || defaults[:tags]
+    @output_dir = options[:output_dir] || defaults[:output_dir]
   end
 
   def read_from_wikipedia(terms_map = {})
@@ -15,21 +15,23 @@ class Vandal
       puts "Searching data for #{term}"
       filename = File.join(@output_dir, "#{key}.txt")
       File.open(filename, "w") do |f|
-        data = HTTParty.get(wikipedia_url(term)).parsed_response
+        @tags.each do |tag|
 
-        data["query"]["pages"].first[1]["revisions"].each do |revision|
+          data = HTTParty.get(wikipedia_url(term, tag)).parsed_response
 
-          diff_response = HTTParty.get(diff_url(revision['revid'], revision['parentid'])).parsed_response
+          data["query"]["pages"].first[1]["revisions"].each do |revision|
 
-          diff = diff_response["compare"]["*"]
+            diff_response = HTTParty.get(diff_url(revision['revid'], revision['parentid'])).parsed_response
 
-          matches = diff.scan(fragment_match)
-          if matches
-            valid_matches = select_valid_matches(matches.flatten(&:strip)).compact
-            f.write valid_matches * "\n"
+            diff = diff_response["compare"]["*"]
+
+            matches = diff.scan(fragment_match)
+            if matches
+              valid_matches = select_valid_matches(matches.flatten(&:strip)).compact
+              f.write valid_matches * "\n"
+            end
           end
         end
-
         puts "Created file: #{filename}"
       end
     end
@@ -37,8 +39,8 @@ class Vandal
 
   private
 
-  def wikipedia_url(term)
-    URI.encode "https://#{@lang}.wikipedia.org/w/api.php?action=query&prop=revisions&rvtag=#{@tag}&rvlimit=300&rvprop=ids|tags|comment&titles=#{term}&format=json"
+  def wikipedia_url(term, tag)
+    URI.encode "https://#{@lang}.wikipedia.org/w/api.php?action=query&prop=revisions&rvtag=#{tag}&rvlimit=300&rvprop=ids|tags|comment&titles=#{term}&format=json"
   end
 
   def diff_url(revision_id, parent_id)
@@ -56,7 +58,7 @@ class Vandal
 
   def defaults
     { lang: "es",
-      tag: "posible vandalismo",
+      tags: ["posible vandalismo", "mw-rollback"],
       output_dir: "data"
     }
   end
