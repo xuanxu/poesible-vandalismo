@@ -40,7 +40,7 @@ class Vandal
   private
 
   def wikipedia_url(term, tag)
-    URI.encode "https://#{@lang}.wikipedia.org/w/api.php?action=query&prop=revisions&rvtag=#{tag}&rvlimit=300&rvprop=ids|tags|comment&titles=#{term}&format=json"
+    URI.encode "https://#{@lang}.wikipedia.org/w/api.php?action=query&prop=revisions&rvtag=#{tag}&rvlimit=#{defaults[:limit]}&rvprop=ids|tags|comment&titles=#{term}&format=json"
   end
 
   def diff_url(revision_id, parent_id)
@@ -59,7 +59,8 @@ class Vandal
   def defaults
     { lang: "es",
       tags: ["posible vandalismo", "mw-rollback"],
-      output_dir: "data"
+      output_dir: "data",
+      limit: 200
     }
   end
 
