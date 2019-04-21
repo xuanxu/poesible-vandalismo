@@ -69,7 +69,7 @@ class Poet
   end
 
   def clean_verse(verse)
-    verse.strip.delete("-=/&%$|@#[]{}*").split.map(&:strip).join(" ")
+    verse.strip.delete("-=/&%$|@#[]{}*\".").split.map(&:strip).join(" ")
   end
 
   def defaults
