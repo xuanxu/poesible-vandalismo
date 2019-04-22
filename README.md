@@ -2,7 +2,7 @@
 
 Proyecto para el [_Poetry Slash 2019_](https://poesia.javier.is/)
 
-El código de este repositorio genera poemas a partir de las cadenas de texto que se obtienen de las ediciones eliminadas de páginas de Wikipedia y que los editores que las han deshecho han marcado con la [etiqueta](https://es.wikipedia.org/wiki/Especial:Etiquetas) `"posible vandalismo"` (en algunos casos también se añaden los textos de las ediciones etiquetadas con `"mw-rollback"`.
+El código de este repositorio intenta generar poemas a partir de las ediciones eliminadas de páginas de Wikipedia y que los editores que las han deshecho han marcado con la [etiqueta](https://es.wikipedia.org/wiki/Especial:Etiquetas) `"posible vandalismo"` (en algunos casos también se añaden los textos de las ediciones etiquetadas con `"mw-rollback"`.
 
 
 ## Uso
