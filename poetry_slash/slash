@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require_relative "../wikipedia_mapping"
+require_relative "../vandal"
+require_relative "../poet"
+
+if ARGV.size == 0
+  puts "No term"
+else
+  term = ARGV[0]
+  if WikipediaMapping.new("wiki-terms.yml").mapping.keys.include?(term)
+    poet = Poet.new
+
+    puts " #  Po(e)sible Vandalismo: #{term}   #"
+    puts poet.poem(term)
+    puts " #"
+  else
+    puts "#{term} not found in wiki-terms.yml"
+  end
+end
