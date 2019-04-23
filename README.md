@@ -38,3 +38,8 @@ Para ejecutarlo basta con hacer:
 
 ```
 donde `titulo_del_poema` tiene que estar definido en `poetry_slash/wikiterms.yml`
+
+
+## Licencia
+
+Copyright © 2019 Juanjo Bazán, liberado con [licencia MIT](https://github.com/xuanxu/poesible-vandalismo/blob/master/LICENSE).
