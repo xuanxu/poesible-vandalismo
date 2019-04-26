@@ -13,7 +13,7 @@ class Vandal
   end
 
   def read_from_wikipedia(term)
-    puts "Searching data for #{term}"
+    puts "Searching data for #{term}\n\n"
     filename = File.join(@output_dir, "#{term}.txt")
     File.open(filename, "w") do |f|
       @tags.each do |tag|

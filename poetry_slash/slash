@@ -11,9 +11,19 @@ else
   if WikipediaMapping.new("wiki-terms.yml").mapping.keys.include?(term)
     poet = Poet.new
 
-    puts " #  Po(e)sible Vandalismo: #{term}   #"
-    puts poet.poem(term)
-    puts " #"
+
+    puts " __________________________________________"
+    puts " "
+    puts "    Po(e)sible Vandalismo :: #{term.upcase} "
+    puts " __________________________________________"
+    puts " "
+
+
+    puts "    #{term.upcase}  "
+    puts " "
+    puts "    " + poet.poem(term).split("\n") * "\n    "
+    puts " "
+    puts "                    ***                      "
   else
     puts "#{term} not found in wiki-terms.yml"
   end
