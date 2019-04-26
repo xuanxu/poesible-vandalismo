@@ -35,7 +35,7 @@ class Poet
     data = File.read(filename).split
     if data.size < 1
       File.delete(filename)
-      raise "The #{filename} file is empty or do not exist"
+      raise "No data found - Maybe the wikipedia page for #{@term} has been never vandalized (yet)"
     end
     data
   end
