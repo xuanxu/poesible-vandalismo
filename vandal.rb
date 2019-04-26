@@ -20,11 +20,13 @@ class Vandal
 
         data = HTTParty.get(wikipedia_url(wp_mapping.wikipedia_page_for(term), tag)).parsed_response
 
+        return if data["query"]["pages"].first[1]["revisions"].nil?
+
         data["query"]["pages"].first[1]["revisions"].each do |revision|
 
           diff_response = HTTParty.get(diff_url(revision['revid'], revision['parentid'])).parsed_response
 
-          diff = diff_response["compare"]["*"]
+          diff = diff_response["compare"]["*"] rescue ""
 
           matches = diff.scan(fragment_match)
           if matches

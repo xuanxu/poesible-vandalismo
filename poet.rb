@@ -32,7 +32,7 @@ class Poet
   def read_data
     filename = File.join(@data_dir, "#{@term}.txt")
     Vandal.new(output_dir: @data_dir).read_from_wikipedia(@term) unless File.exist?(filename)
-    data = File.read(filename).split
+    data = File.readlines(filename)
     if data.size < 1
       File.delete(filename)
       raise "No data found - Maybe the wikipedia page for #{@term} has been never vandalized (yet)"
@@ -58,7 +58,7 @@ class Poet
     verse_words = verse.strip.split.map(&:strip)
     if verse_words.size > limit
       difference = verse_words.size - limit
-      verse = verse_words.slice((0..difference).to_a.sample, limit)
+      verse = verse_words.slice((0..difference).to_a.sample, limit) * " "
     end
 
     verse
