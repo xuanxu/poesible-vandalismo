@@ -1,2 +1,2 @@
-poetry_slash/data/*.txt
+#poetry_slash/data/*.txt
 poetry_slash/results/*.txt
